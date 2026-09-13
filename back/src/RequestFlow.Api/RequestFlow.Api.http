@@ -1,0 +1,16 @@
+@RequestFlow.Api_HostAddress = http://localhost:5132
+
+GET {{RequestFlow.Api_HostAddress}}/api/requests?pageNumber=1&pageSize=5
+Accept: application/json
+
+###
+
+POST {{RequestFlow.Api_HostAddress}}/api/requests
+Content-Type: application/json
+
+{
+  "title": "Acesso ao portal",
+  "description": "Liberar acesso ao portal interno.",
+  "requester": "Ana Silva",
+  "priority": "Medium"
+}

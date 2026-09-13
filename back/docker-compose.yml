@@ -1,0 +1,14 @@
+services:
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: requestflow-sqlserver
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_SA_PASSWORD: ${MSSQL_SA_PASSWORD:?Set MSSQL_SA_PASSWORD in back/.env}
+    ports:
+      - "1433:1433"
+    volumes:
+      - requestflow_sql_data:/var/opt/mssql
+
+volumes:
+  requestflow_sql_data:
