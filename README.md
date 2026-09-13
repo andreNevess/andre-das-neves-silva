@@ -124,6 +124,8 @@ dotnet user-secrets list --project src/RequestFlow.Api
 dotnet ef database update --project src/RequestFlow.Infrastructure --startup-project src/RequestFlow.Api
 ```
 
+Mantenha `MSSQL_SA_PASSWORD` definido nesse terminal ao executar as migrations. Alternativamente, use `ConnectionStrings__DefaultConnection` com a connection string completa.
+
 5. Abra `back/RequestFlow.sln` no Visual Studio.
 
 6. Marque `RequestFlow.Api` como startup project.
