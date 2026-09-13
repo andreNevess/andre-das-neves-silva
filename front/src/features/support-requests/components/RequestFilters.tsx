@@ -3,6 +3,7 @@
 import { RefreshCw, Search } from "lucide-react";
 import { priorities, priorityLabels, statuses, statusLabels } from "../lib/labels";
 import type { RequestPriority, RequestStatus } from "../lib/types";
+import { Dropdown, type DropdownOption } from "./Dropdown";
 
 export type RequestFilterState = {
   search: string;
@@ -15,6 +16,22 @@ type RequestFiltersProps = {
   onChange: (filters: RequestFilterState) => void;
   onReset: () => void;
 };
+
+const statusOptions: DropdownOption<RequestStatus | "">[] = [
+  { value: "", label: "Todos" },
+  ...statuses.map((status) => ({
+    value: status,
+    label: statusLabels[status]
+  }))
+];
+
+const priorityOptions: DropdownOption<RequestPriority | "">[] = [
+  { value: "", label: "Todas" },
+  ...priorities.map((priority) => ({
+    value: priority,
+    label: priorityLabels[priority]
+  }))
+];
 
 export function RequestFilters({ filters, onChange, onReset }: RequestFiltersProps) {
   return (
@@ -37,46 +54,32 @@ export function RequestFilters({ filters, onChange, onReset }: RequestFiltersPro
 
       <div className="field">
         <label htmlFor="status">Status</label>
-        <select
-          className="select"
+        <Dropdown
           id="status"
+          options={statusOptions}
           value={filters.status}
-          onChange={(event) =>
+          onChange={(status) =>
             onChange({
               ...filters,
-              status: event.target.value as RequestStatus | ""
+              status
             })
           }
-        >
-          <option value="">Todos</option>
-          {statuses.map((status) => (
-            <option key={status} value={status}>
-              {statusLabels[status]}
-            </option>
-          ))}
-        </select>
+        />
       </div>
 
       <div className="field">
         <label htmlFor="priority">Prioridade</label>
-        <select
-          className="select"
+        <Dropdown
           id="priority"
+          options={priorityOptions}
           value={filters.priority}
-          onChange={(event) =>
+          onChange={(priority) =>
             onChange({
               ...filters,
-              priority: event.target.value as RequestPriority | ""
+              priority
             })
           }
-        >
-          <option value="">Todas</option>
-          {priorities.map((priority) => (
-            <option key={priority} value={priority}>
-              {priorityLabels[priority]}
-            </option>
-          ))}
-        </select>
+        />
       </div>
 
       <div className="field">

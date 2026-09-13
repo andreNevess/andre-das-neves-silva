@@ -15,6 +15,7 @@ import type {
   SupportRequest,
   UpdateSupportRequestPayload
 } from "../lib/types";
+import { Dropdown, type DropdownOption } from "./Dropdown";
 import { StatusBadge } from "./StatusBadge";
 
 type RequestDetailsProps = {
@@ -25,6 +26,11 @@ type RequestDetailsProps = {
   onUpdate: (payload: UpdateSupportRequestPayload) => Promise<void>;
   onDelete: () => Promise<void>;
 };
+
+const priorityOptions: DropdownOption<RequestPriority>[] = priorities.map((priority) => ({
+  value: priority,
+  label: priorityLabels[priority]
+}));
 
 export function RequestDetails({
   request,
@@ -73,6 +79,11 @@ export function RequestDetails({
   }
 
   const isCompleted = request.status === "Completed";
+  const statusOptions: DropdownOption<RequestStatus>[] = statuses.map((item) => ({
+    value: item,
+    label: statusLabels[item],
+    disabled: isCompleted && item !== "Completed"
+  }));
 
   return (
     <div className="details">
@@ -107,39 +118,23 @@ export function RequestDetails({
       <form className="form" onSubmit={handleSubmit}>
         <div className="field">
           <label htmlFor="detailPriority">Prioridade</label>
-          <select
-            className="select"
+          <Dropdown
             id="detailPriority"
+            options={priorityOptions}
             value={priority}
-            onChange={(event) => setPriority(event.target.value as RequestPriority)}
-          >
-            {priorities.map((item) => (
-              <option key={item} value={item}>
-                {priorityLabels[item]}
-              </option>
-            ))}
-          </select>
+            onChange={setPriority}
+          />
         </div>
 
         <div className="field">
           <label htmlFor="detailStatus">Status</label>
-          <select
-            className="select"
-            id="detailStatus"
-            value={status}
+          <Dropdown
             disabled={isCompleted}
-            onChange={(event) => setStatus(event.target.value as RequestStatus)}
-          >
-            {statuses.map((item) => (
-              <option
-                disabled={isCompleted && item !== "Completed"}
-                key={item}
-                value={item}
-              >
-                {statusLabels[item]}
-              </option>
-            ))}
-          </select>
+            id="detailStatus"
+            options={statusOptions}
+            value={status}
+            onChange={setStatus}
+          />
         </div>
 
         <div className="detailActions">

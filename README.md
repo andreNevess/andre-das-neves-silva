@@ -196,7 +196,7 @@ npm audit
 - MediatR organiza casos de uso em comandos e queries; FluentValidation centraliza validacoes de entrada.
 - EF Core foi escolhido conforme solicitado; migrations versionam o schema.
 - SQL Server em Docker foi definido como padrao para tornar o ambiente mais reproduzivel na avaliacao.
-- Enums sao persistidos como texto para facilitar leitura do banco e reduzir ambiguidade operacional.
+- Enums sao persistidos como texto para facilitar leitura do banco e reduzir ambiguidade operacional. Assim, consultas manuais exibem `Low`, `Medium`, `High`, `Open`, `InProgress` e `Completed` em vez de codigos numericos sem contexto.
 - O front usa App Router por ser o modelo atual do Next.js, com componentes de feature e cliente HTTP tipado.
 - A UI evita biblioteca de estado global porque o fluxo e pequeno; estado local com efeitos abortaveis manteve o codigo simples e testavel.
 - O middleware de excecoes padroniza erros conhecidos e inesperados com `ProblemDetails`; o middleware de correlacao adiciona `X-Correlation-ID` para facilitar troubleshooting.
@@ -212,6 +212,8 @@ A migration cria:
 - Indices em `Title` e `Requester`.
 
 O indice composto apoia os filtros por status/prioridade e a ordenacao padrao por criacao mais recente. Os indices em titulo e solicitante ajudam cenarios de busca e evolucoes futuras, embora buscas com `LIKE '%termo%'` possam nao usar plenamente o indice em SQL Server.
+
+As colunas `Priority` e `Status` sao salvas como texto para manter o banco legivel durante consultas operacionais e avaliacao manual. Para evitar valores fora do dominio, a migration tambem cria check constraints limitando `Priority` a `Low`, `Medium` e `High`, e `Status` a `Open`, `InProgress` e `Completed`.
 
 ## Limitacoes Conhecidas
 
@@ -236,6 +238,6 @@ O indice composto apoia os filtros por status/prioridade e a ordenacao padrao po
 
 ## Tempo e Uso de IA
 
-Tempo aproximado utilizado nesta implementacao assistida: cerca de 4 horas de construcao iterativa e validacao local.
+Tempo aproximado utilizado nesta implementacao assistida: cerca de 3,5 horas de construcao iterativa e validacao local.
 
 Ferramenta de IA utilizada: OpenAI Codex/ChatGPT para leitura do enunciado, geracao orientada de codigo, ajustes de build/testes e documentacao. As decisoes de arquitetura foram aplicadas de forma explicita na estrutura do projeto.

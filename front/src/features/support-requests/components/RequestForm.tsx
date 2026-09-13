@@ -4,6 +4,7 @@ import { LoaderCircle, Plus } from "lucide-react";
 import { FormEvent, useState } from "react";
 import { priorities, priorityLabels } from "../lib/labels";
 import type { CreateSupportRequestPayload, RequestPriority } from "../lib/types";
+import { Dropdown, type DropdownOption } from "./Dropdown";
 
 type RequestFormProps = {
   isSubmitting: boolean;
@@ -18,6 +19,11 @@ const initialForm: CreateSupportRequestPayload = {
   requester: "",
   priority: "Medium"
 };
+
+const priorityOptions: DropdownOption<RequestPriority>[] = priorities.map((priority) => ({
+  value: priority,
+  label: priorityLabels[priority]
+}));
 
 export function RequestForm({ isSubmitting, onSubmit }: RequestFormProps) {
   const [form, setForm] = useState<CreateSupportRequestPayload>(initialForm);
@@ -84,23 +90,17 @@ export function RequestForm({ isSubmitting, onSubmit }: RequestFormProps) {
 
       <div className="field">
         <label htmlFor="newPriority">Prioridade</label>
-        <select
-          className="select"
+        <Dropdown
           id="newPriority"
+          options={priorityOptions}
           value={form.priority}
-          onChange={(event) =>
+          onChange={(priority) =>
             setForm({
               ...form,
-              priority: event.target.value as RequestPriority
+              priority
             })
           }
-        >
-          {priorities.map((priority) => (
-            <option key={priority} value={priority}>
-              {priorityLabels[priority]}
-            </option>
-          ))}
-        </select>
+        />
       </div>
 
       <div className="field">

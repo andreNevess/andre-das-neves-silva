@@ -174,6 +174,15 @@ function setupFetch() {
   return fetchMock;
 }
 
+async function chooseDropdownOption(
+  user: ReturnType<typeof userEvent.setup>,
+  trigger: HTMLElement,
+  optionName: string
+) {
+  await user.click(trigger);
+  await user.click(screen.getByRole("option", { name: optionName }));
+}
+
 describe("RequestsPage", () => {
   beforeEach(() => {
     requests = [
@@ -285,8 +294,8 @@ describe("RequestsPage", () => {
     expect(await screen.findByText("VPN corporativa instavel")).toBeInTheDocument();
 
     await user.type(screen.getByLabelText("Pesquisa"), "VPN");
-    await user.selectOptions(screen.getByLabelText("Status"), "Open");
-    await user.selectOptions(screen.getAllByLabelText("Prioridade")[0], "High");
+    await chooseDropdownOption(user, screen.getByLabelText("Status"), "Aberta");
+    await chooseDropdownOption(user, screen.getAllByLabelText("Prioridade")[0], "Alta");
 
     await waitFor(() => {
       const urls = vi
@@ -324,8 +333,8 @@ describe("RequestsPage", () => {
     await user.click(await screen.findByText("VPN corporativa instavel"));
     expect(await screen.findByText(/descricao detalhada/i)).toBeInTheDocument();
 
-    await user.selectOptions(screen.getAllByLabelText("Prioridade").at(-1)!, "Medium");
-    await user.selectOptions(screen.getAllByLabelText("Status").at(-1)!, "InProgress");
+    await chooseDropdownOption(user, screen.getAllByLabelText("Prioridade").at(-1)!, "Media");
+    await chooseDropdownOption(user, screen.getAllByLabelText("Status").at(-1)!, "Em andamento");
     await user.click(screen.getByRole("button", { name: /salvar alteracoes/i }));
 
     await waitFor(() => {
