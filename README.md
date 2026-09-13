@@ -188,6 +188,7 @@ npm audit
 - Se alterar a senha depois que o volume ja foi criado, use a senha original daquele volume ou recrie o ambiente local com `docker compose down -v` dentro da pasta `back`. Esse comando apaga os dados locais do SQL Server.
 - Se a API iniciar com erro sobre `MSSQL_SA_PASSWORD`, defina a variavel de ambiente no terminal atual ou configure user-secrets no projeto `RequestFlow.Api`.
 - Se a migration falhar logo apos `docker compose up -d`, aguarde alguns segundos e tente novamente; o SQL Server pode ainda estar inicializando.
+- Se comandos `dotnet build`, `dotnet test` ou `dotnet ef` falharem informando que DLL/PDB esta em uso, pare a API no Visual Studio ou encerre o processo `RequestFlow.Api` antes de executar novamente.
 - Se a porta `1433` ja estiver em uso, pare o outro SQL Server local ou altere a porta publicada no `docker-compose.yml` e ajuste `SqlServer:Server`.
 - Se a porta `5132` estiver em uso, altere `applicationUrl` em `back/src/RequestFlow.Api/Properties/launchSettings.json` e atualize `front/.env.local`.
 
