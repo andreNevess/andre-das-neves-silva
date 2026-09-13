@@ -150,7 +150,7 @@ export function RequestsPage() {
     try {
       const created = await createSupportRequest(payload);
       setSelectedId(created.id);
-      setMessage("Solicitacao registrada.");
+      setMessage("Solicitação registrada.");
       setReloadKey((value) => value + 1);
     } catch (error) {
       setMessage(readError(error));
@@ -170,7 +170,7 @@ export function RequestsPage() {
     try {
       const updated = await updateSupportRequest(selectedRequest.id, payload);
       setSelectedRequest(updated);
-      setMessage("Solicitacao atualizada.");
+      setMessage("Solicitação atualizada.");
       setReloadKey((value) => value + 1);
     } catch (error) {
       setMessage(readError(error));
@@ -184,7 +184,7 @@ export function RequestsPage() {
       return;
     }
 
-    const shouldDelete = window.confirm("Excluir esta solicitacao?");
+    const shouldDelete = window.confirm("Excluir esta solicitação?");
 
     if (!shouldDelete) {
       return;
@@ -197,7 +197,7 @@ export function RequestsPage() {
       await deleteSupportRequest(selectedRequest.id);
       setSelectedId(undefined);
       setSelectedRequest(undefined);
-      setMessage("Solicitacao excluida.");
+      setMessage("Solicitação excluída.");
       setReloadKey((value) => value + 1);
     } catch (error) {
       setMessage(readError(error));
@@ -213,7 +213,7 @@ export function RequestsPage() {
     <main className="appShell">
       <header className="topBar">
         <div className="titleBlock">
-          <h1>Solicitacoes internas</h1>
+          <h1>Solicitações internas</h1>
           <p>Registro e acompanhamento de suporte interno</p>
         </div>
         <div className="statusLine" aria-live="polite">
@@ -225,7 +225,7 @@ export function RequestsPage() {
         <section className="panel" aria-labelledby="requests-heading">
           <div className="panelHeader">
             <div>
-              <h2 id="requests-heading">Solicitacoes</h2>
+              <h2 id="requests-heading">Solicitações</h2>
               <p>{page.totalItems} registro(s)</p>
             </div>
             <ListChecks aria-hidden="true" />
@@ -247,15 +247,15 @@ export function RequestsPage() {
 
           <div className="panelFooter pagination">
             <span>
-              Pagina {page.totalPages === 0 ? 0 : page.pageNumber} de{" "}
+              Página {page.totalPages === 0 ? 0 : page.pageNumber} de{" "}
               {page.totalPages}
             </span>
             <div className="paginationControls">
               <button
                 className="button secondary iconOnly"
                 type="button"
-                title="Pagina anterior"
-                aria-label="Pagina anterior"
+                title="Página anterior"
+                aria-label="Página anterior"
                 disabled={!canGoBack}
                 onClick={() => setPageNumber((value) => Math.max(1, value - 1))}
               >
@@ -264,8 +264,8 @@ export function RequestsPage() {
               <button
                 className="button secondary iconOnly"
                 type="button"
-                title="Proxima pagina"
-                aria-label="Proxima pagina"
+                title="Próxima página"
+                aria-label="Próxima página"
                 disabled={!canGoForward}
                 onClick={() => setPageNumber((value) => value + 1)}
               >
@@ -278,7 +278,7 @@ export function RequestsPage() {
         <aside className="sideStack">
           <section className="panel" aria-labelledby="new-request-heading">
             <div className="panelHeader">
-              <h2 id="new-request-heading">Nova solicitacao</h2>
+              <h2 id="new-request-heading">Nova solicitação</h2>
             </div>
             <div className="panelBody">
               <RequestForm isSubmitting={isSubmitting} onSubmit={handleCreate} />
@@ -316,5 +316,5 @@ function readError(error: unknown): string {
     return error.message;
   }
 
-  return "Nao foi possivel completar a operacao.";
+  return "Não foi possível completar a operação.";
 }

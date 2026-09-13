@@ -2,14 +2,14 @@ import type { RequestPriority, RequestStatus } from "./types";
 
 export const priorityLabels: Record<RequestPriority, string> = {
   Low: "Baixa",
-  Medium: "Media",
+  Medium: "Média",
   High: "Alta"
 };
 
 export const statusLabels: Record<RequestStatus, string> = {
   Open: "Aberta",
   InProgress: "Em andamento",
-  Completed: "Concluida"
+  Completed: "Concluída"
 };
 
 export const priorities: RequestPriority[] = ["Low", "Medium", "High"];

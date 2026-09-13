@@ -53,7 +53,7 @@ export function RequestForm({ isSubmitting, onSubmit }: RequestFormProps) {
   return (
     <form className="form" onSubmit={handleSubmit} noValidate>
       <div className="field">
-        <label htmlFor="title">Titulo</label>
+        <label htmlFor="title">Título</label>
         <input
           aria-describedby={errors.title ? "title-error" : undefined}
           aria-invalid={Boolean(errors.title)}
@@ -104,7 +104,7 @@ export function RequestForm({ isSubmitting, onSubmit }: RequestFormProps) {
       </div>
 
       <div className="field">
-        <label htmlFor="description">Descricao</label>
+        <label htmlFor="description">Descrição</label>
         <textarea
           aria-describedby={errors.description ? "description-error" : undefined}
           aria-invalid={Boolean(errors.description)}
@@ -130,7 +130,7 @@ export function RequestForm({ isSubmitting, onSubmit }: RequestFormProps) {
           ) : (
             <Plus aria-hidden="true" />
           )}
-          Registrar solicitacao
+          Registrar solicitação
         </button>
       </div>
     </form>
@@ -141,7 +141,7 @@ function validate(form: CreateSupportRequestPayload): FormErrors {
   const errors: FormErrors = {};
 
   if (!form.title.trim()) {
-    errors.title = "Informe o titulo.";
+    errors.title = "Informe o título.";
   }
 
   if (!form.requester.trim()) {
@@ -149,7 +149,7 @@ function validate(form: CreateSupportRequestPayload): FormErrors {
   }
 
   if (!form.description.trim()) {
-    errors.description = "Informe a descricao.";
+    errors.description = "Informe a descrição.";
   }
 
   return errors;

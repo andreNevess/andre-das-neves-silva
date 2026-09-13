@@ -35,7 +35,7 @@ const priorityOptions: DropdownOption<RequestPriority | "">[] = [
 
 export function RequestFilters({ filters, onChange, onReset }: RequestFiltersProps) {
   return (
-    <div className="filters" aria-label="Filtros de solicitacoes">
+    <div className="filters" aria-label="Filtros de solicitações">
       <div className="field">
         <label htmlFor="search">Pesquisa</label>
         <div className="inputShell">
@@ -47,7 +47,7 @@ export function RequestFilters({ filters, onChange, onReset }: RequestFiltersPro
             onChange={(event) =>
               onChange({ ...filters, search: event.target.value })
             }
-            placeholder="Titulo ou solicitante"
+            placeholder="Título ou solicitante"
           />
         </div>
       </div>

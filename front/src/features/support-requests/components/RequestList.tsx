@@ -24,7 +24,7 @@ export function RequestList({
     return (
       <div className="loadingState" role="status">
         <LoaderCircle aria-hidden="true" />
-        <span>Carregando solicitacoes...</span>
+        <span>Carregando solicitações...</span>
       </div>
     );
   }
@@ -41,7 +41,7 @@ export function RequestList({
   if (requests.length === 0) {
     return (
       <div className="emptyState">
-        <span>Nenhuma solicitacao encontrada.</span>
+        <span>Nenhuma solicitação encontrada.</span>
       </div>
     );
   }

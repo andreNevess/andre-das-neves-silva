@@ -73,7 +73,7 @@ export function RequestDetails({
   if (!request) {
     return (
       <div className="emptyState">
-        <span>Selecione uma solicitacao.</span>
+        <span>Selecione uma solicitação.</span>
       </div>
     );
   }
@@ -102,11 +102,11 @@ export function RequestDetails({
           <dd>{request.requester}</dd>
         </div>
         <div>
-          <dt>Criacao</dt>
+          <dt>Criação</dt>
           <dd>{formatDateTime(request.createdAtUtc)}</dd>
         </div>
         <div>
-          <dt>Conclusao</dt>
+          <dt>Conclusão</dt>
           <dd>{formatDateTime(request.completedAtUtc)}</dd>
         </div>
         <div>
@@ -144,7 +144,7 @@ export function RequestDetails({
             ) : (
               <Save aria-hidden="true" />
             )}
-            Salvar alteracoes
+            Salvar alterações
           </button>
 
           {request.status === "Open" ? (

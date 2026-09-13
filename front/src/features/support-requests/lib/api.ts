@@ -18,7 +18,7 @@ export class ApiError extends Error {
   readonly messages: string[];
 
   constructor(messages: string[]) {
-    super(messages[0] ?? "Nao foi possivel completar a operacao.");
+    super(messages[0] ?? "Não foi possível completar a operação.");
     this.messages = messages;
   }
 }
@@ -114,6 +114,6 @@ async function readMessages(response: Response): Promise<string[]> {
       problem.title
     ].filter((message): message is string => Boolean(message));
   } catch {
-    return ["Nao foi possivel completar a operacao."];
+    return ["Não foi possível completar a operação."];
   }
 }

@@ -34,7 +34,7 @@ function buildRequest(
   return {
     id,
     title,
-    description: `${title} - descricao detalhada.`,
+    description: `${title} - descrição detalhada.`,
     requester,
     priority,
     status,
@@ -96,7 +96,7 @@ function setupFetch() {
         return jsonResponse(
           {
             title: "Erro inesperado",
-            detail: "Nao foi possivel carregar as solicitacoes."
+            detail: "Não foi possível carregar as solicitações."
           },
           500
         );
@@ -132,7 +132,7 @@ function setupFetch() {
 
       return request
         ? jsonResponse(request)
-        : jsonResponse({ detail: "Solicitacao nao encontrada." }, 404);
+        : jsonResponse({ detail: "Solicitação não encontrada." }, 404);
     }
 
     if (requestId && method === "PATCH") {
@@ -144,7 +144,7 @@ function setupFetch() {
       const request = requests.find((item) => item.id === requestId);
 
       if (!request) {
-        return jsonResponse({ detail: "Solicitacao nao encontrada." }, 404);
+        return jsonResponse({ detail: "Solicitação não encontrada." }, 404);
       }
 
       const updated = {
@@ -220,7 +220,7 @@ describe("RequestsPage", () => {
       ),
       buildRequest(
         "3d0b1031-caa7-4810-b740-455968c319f8",
-        "VPN renovacao de certificado",
+        "VPN renovação de certificado",
         "Fabio Nunes",
         "High",
         "Open",
@@ -260,19 +260,19 @@ describe("RequestsPage", () => {
     expect(await screen.findByText("VPN corporativa instavel")).toBeInTheDocument();
 
     await user.click(
-      screen.getByRole("button", { name: /registrar solicitacao/i })
+      screen.getByRole("button", { name: /registrar solicitação/i })
     );
 
-    expect(screen.getByText("Informe o titulo.")).toBeInTheDocument();
+    expect(screen.getByText("Informe o título.")).toBeInTheDocument();
     expect(screen.getByText("Informe o solicitante.")).toBeInTheDocument();
-    expect(screen.getByText("Informe a descricao.")).toBeInTheDocument();
+    expect(screen.getByText("Informe a descrição.")).toBeInTheDocument();
 
-    await user.type(screen.getByLabelText("Titulo"), createdRequest.title);
+    await user.type(screen.getByLabelText("Título"), createdRequest.title);
     await user.type(screen.getByLabelText("Solicitante"), createdRequest.requester);
-    await user.type(screen.getByLabelText("Descricao"), createdRequest.description);
+    await user.type(screen.getByLabelText("Descrição"), createdRequest.description);
 
     await user.click(
-      screen.getByRole("button", { name: /registrar solicitacao/i })
+      screen.getByRole("button", { name: /registrar solicitação/i })
     );
 
     await waitFor(() => {
@@ -284,7 +284,7 @@ describe("RequestsPage", () => {
       );
     });
 
-    expect(await screen.findByText("Solicitacao registrada.")).toBeInTheDocument();
+    expect(await screen.findByText("Solicitação registrada.")).toBeInTheDocument();
   });
 
   it("applies search, filters and pagination", async () => {
@@ -312,7 +312,7 @@ describe("RequestsPage", () => {
       ).toBe(true);
     });
 
-    await user.click(screen.getByRole("button", { name: "Proxima pagina" }));
+    await user.click(screen.getByRole("button", { name: "Próxima página" }));
 
     await waitFor(() => {
       const urls = vi
@@ -331,11 +331,11 @@ describe("RequestsPage", () => {
     render(<RequestsPage />);
 
     await user.click(await screen.findByText("VPN corporativa instavel"));
-    expect(await screen.findByText(/descricao detalhada/i)).toBeInTheDocument();
+    expect(await screen.findByText(/descrição detalhada/i)).toBeInTheDocument();
 
-    await chooseDropdownOption(user, screen.getAllByLabelText("Prioridade").at(-1)!, "Media");
+    await chooseDropdownOption(user, screen.getAllByLabelText("Prioridade").at(-1)!, "Média");
     await chooseDropdownOption(user, screen.getAllByLabelText("Status").at(-1)!, "Em andamento");
-    await user.click(screen.getByRole("button", { name: /salvar alteracoes/i }));
+    await user.click(screen.getByRole("button", { name: /salvar alterações/i }));
 
     await waitFor(() => {
       expect(fetch).toHaveBeenCalledWith(
@@ -346,7 +346,7 @@ describe("RequestsPage", () => {
       );
     });
 
-    expect(await screen.findByText("Solicitacao atualizada.")).toBeInTheDocument();
+    expect(await screen.findByText("Solicitação atualizada.")).toBeInTheDocument();
   });
 
   it("deletes an open selected request after confirmation", async () => {
@@ -365,21 +365,21 @@ describe("RequestsPage", () => {
       );
     });
 
-    expect(await screen.findByText("Solicitacao excluida.")).toBeInTheDocument();
+    expect(await screen.findByText("Solicitação excluída.")).toBeInTheDocument();
   });
 
   it("shows empty and error states", async () => {
     requests = [];
     const { unmount } = render(<RequestsPage />);
 
-    expect(await screen.findByText("Nenhuma solicitacao encontrada.")).toBeInTheDocument();
+    expect(await screen.findByText("Nenhuma solicitação encontrada.")).toBeInTheDocument();
 
     unmount();
     shouldFailList = true;
     render(<RequestsPage />);
 
     expect(
-      await screen.findByText(/Nao foi possivel carregar as solicitacoes/i)
+      await screen.findByText(/Não foi possível carregar as solicitações/i)
     ).toBeInTheDocument();
   });
 });
