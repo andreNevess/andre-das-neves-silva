@@ -185,7 +185,7 @@ npm audit
 ## Solucao de Problemas
 
 - Se o Docker informar erro de senha, confira se a senha atende aos requisitos do SQL Server: pelo menos 8 caracteres, letras maiusculas e minusculas, numero e simbolo.
-- Se alterar a senha depois que o volume ja foi criado, remova o container/volume antigo ou use a senha original daquele volume.
+- Se alterar a senha depois que o volume ja foi criado, use a senha original daquele volume ou recrie o ambiente local com `docker compose down -v` dentro da pasta `back`. Esse comando apaga os dados locais do SQL Server.
 - Se a API iniciar com erro sobre `MSSQL_SA_PASSWORD`, defina a variavel de ambiente no terminal atual ou configure user-secrets no projeto `RequestFlow.Api`.
 - Se a migration falhar logo apos `docker compose up -d`, aguarde alguns segundos e tente novamente; o SQL Server pode ainda estar inicializando.
 - Se a porta `1433` ja estiver em uso, pare o outro SQL Server local ou altere a porta publicada no `docker-compose.yml` e ajuste `SqlServer:Server`.
