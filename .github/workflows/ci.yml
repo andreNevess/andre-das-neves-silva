@@ -1,0 +1,60 @@
+name: ci
+
+on:
+  push:
+    branches:
+      - "**"
+  pull_request:
+
+jobs:
+  backend:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+
+      - name: Restore backend
+        run: dotnet restore back/RequestFlow.sln
+
+      - name: Test backend
+        run: dotnet test back/RequestFlow.sln --no-restore --configuration Release
+
+  frontend:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: front/package-lock.json
+
+      - name: Install frontend
+        working-directory: front
+        run: npm ci
+
+      - name: Lint frontend
+        working-directory: front
+        run: npm run lint
+
+      - name: Test frontend
+        working-directory: front
+        run: npm test
+
+      - name: Build frontend
+        working-directory: front
+        run: npm run build
+
+      - name: Audit frontend
+        working-directory: front
+        run: npm audit --audit-level=high
