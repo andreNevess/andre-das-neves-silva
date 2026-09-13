@@ -54,7 +54,7 @@ API: `http://localhost:5132`
 Swagger: `http://localhost:5132/swagger`  
 Health check: `http://localhost:5132/health`
 
-4. Em outro terminal, rode o front:
+4. Em outro terminal, a partir da raiz do repositorio, rode o front:
 
 ```powershell
 cd front
@@ -90,7 +90,7 @@ Se precisar sobrescrever a connection string completa, use:
 $env:ConnectionStrings__DefaultConnection="Server=localhost,1433;Database=RequestFlowRequestsDb;User Id=sa;Password=<SUA_SENHA_FORTE>;TrustServerCertificate=True;MultipleActiveResultSets=true"
 ```
 
-O arquivo `back/.env.example` documenta as variaveis esperadas pelo Docker Compose. A API nao depende desse arquivo automaticamente; para a API, use variavel de ambiente ou `dotnet user-secrets`.
+O arquivo `back/.env.example` documenta a variavel esperada pelo Docker Compose. Se preferir usar arquivo `.env`, copie `back/.env.example` para `back/.env` e preencha `MSSQL_SA_PASSWORD`; esse arquivo local e ignorado pelo Git. A API nao depende desse arquivo automaticamente; para a API, use variavel de ambiente ou `dotnet user-secrets`.
 
 ## Back no Visual Studio 2022
 
